@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%-include('layout/head', {title : 'Giỏ Hàng'})%>
+    <link rel="stylesheet" href="/static/site/css/cart.css">
+</head>
+<body>
+
+<!--	Header	-->
+<%-include('layout/header')%>
+<!--	End Header	-->
+
+<!--	Body	-->
+<div id="body">
+	<div class="container">
+    	<%-include('layout/menu')%>
+        <div class="row">
+        	<div id="main" class="col-lg-8 col-md-12 col-sm-12">
+            	<!--	Slider	-->
+                <%-include('layout/slider')%>
+
+                <!--	End Slider	-->
+                
+                <!--	Cart	-->
+                <div id="my-cart">
+                	<div class="row">
+                        <div class="cart-nav-item col-lg-7 col-md-7 col-sm-12">Thông tin sản phẩm</div> 
+                        <div class="cart-nav-item col-lg-2 col-md-2 col-sm-12">Tùy chọn</div> 
+                        <div class="cart-nav-item col-lg-3 col-md-3 col-sm-12">Giá</div>    
+                    </div>  
+                    <form method="post" action="/update-cart">
+                        <div class="cart-item row">
+                            <%for(prd of items){%>
+                            <div class="cart-thumb col-lg-7 col-md-7 col-sm-12">
+                                <img src="/static/images/<%=prd.img%>">
+                                <h4><%=prd.name%></h4>
+                            </div> 
+                            
+                            <div class="cart-quantity col-lg-2 col-md-2 col-sm-12">
+                                <input type="number" name="products[<%=prd.id%>][qty]" id="quantity" class="form-control form-blue quantity" value="<%=prd.qty%>" min="1">
+                            </div> 
+                            <div class="cart-price col-lg-3 col-md-3 col-sm-12"><b><%= new Intl.NumberFormat("vi-VN", {style: "currency", currency: "VND"}).format(prd.price*prd.qty)%></b>
+                                <a href="/del-cart-<%=prd.id%>">Xóa</a>
+                            </div>
+                            <%}%>
+                        </div>  
+                        
+                        
+                        <div class="row">
+                            <div class="cart-thumb col-lg-7 col-md-7 col-sm-12">
+                                <button id="update-cart" class="btn btn-success" type="submit" name="sbm">Cập nhật giỏ hàng</button>	
+                            </div> 
+                            <div class="cart-total col-lg-2 col-md-2 col-sm-12"><b>Tổng cộng:</b></div> 
+                            <div class="cart-price col-lg-3 col-md-3 col-sm-12"><b><%= new Intl.NumberFormat("vi-VN", {style: "currency", currency: "VND"}).format(totalPrice)%></b></div>
+                        </div>
+                        </form>
+                               
+                </div>
+                <!--	End Cart	-->
+                
+                <!--	Customer Info	-->
+                <div id="customer">
+                    <form method="post" action="/order">
+                    <div class="row">
+                        
+                        <div id="customer-name" class="col-lg-4 col-md-4 col-sm-12">
+                            <input placeholder="Họ và tên (bắt buộc)" type="text" name="name" class="form-control" required>
+                        </div>
+                        <div id="customer-phone" class="col-lg-4 col-md-4 col-sm-12">
+                            <input placeholder="Số điện thoại (bắt buộc)" type="text" name="phone" class="form-control" required>
+                        </div>
+                        <div id="customer-mail" class="col-lg-4 col-md-4 col-sm-12">
+                            <input placeholder="Email (bắt buộc)" type="text" name="mail" class="form-control" required>
+                        </div>
+                        <div id="customer-add" class="col-lg-12 col-md-12 col-sm-12">
+                            <input placeholder="Địa chỉ nhà riêng hoặc cơ quan (bắt buộc)" type="text" name="add" class="form-control" required>
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="row">
+                        <div class="by-now col-lg-6 col-md-6 col-sm-12">
+                            <button type="submit" class="btn btn-danger">
+                                <b>Mua ngay</b>
+                                <span>Giao hàng tận nơi siêu tốc</span>
+                            </button>
+                        </div>
+                        <div class="by-now col-lg-6 col-md-6 col-sm-12">
+                            <button type="button" class="btn btn-primary">
+                                <b>Trả góp Online</b>
+                                <span>Vui lòng call (+84) 0988 550 553</span>
+                            </button>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+                <!--	End Customer Info	-->
+                
+            </div>
+    	    <%-include('layout/sidebar')%>
+                       
+        </div>
+    </div>
+</div>
+<!--	End Body	-->
+<%-include('layout/footer')%>
+
+<!--	End Footer	-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

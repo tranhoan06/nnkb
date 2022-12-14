@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%-include('layout/head', {title : 'Tìm Kiếm'})%>
+    <link rel="stylesheet" href="/static/site/css/search.css">
+</head>
+<body>
+
+<!--	Header	-->
+<%-include('layout/header')%>
+<!--	End Header	-->
+
+<!--	Body	-->
+<div id="body">
+	<div class="container">
+    	<%-include('layout/menu')%>
+        <div class="row">
+        	<div id="main" class="col-lg-8 col-md-12 col-sm-12">
+            	<!--	Slider	-->
+                <%-include('layout/slider')%>
+                <!--	End Slider	-->
+                
+                <!--	List Product	-->
+                <div class="products">
+                    <div id="search-result">Kết quả tìm kiếm với sản phẩm <span><%=keyword%></span></div>
+                    <div class="product-list card-deck">
+                        <%for( product of products ){ %>
+                            <%- include("components/product-item", {product : product})%>
+                        <% } %>
+                        
+                    </div>
+                </div>
+                <!--	End List Product	-->
+                
+                <div id="pagination">
+                    <ul class="pagination">
+                        <%if(page > 1){%>
+                            <li class="page-item"><a class="page-link" href="/search?keyword=<%=keyword%>&page=<%=page-1%>">&laquo;</a></li>
+                        <%}%>
+                        <%for(x in pages){%>
+                            <%if(pages[x] ==="..."){%>
+                                <li class="page-item"><a class="page-link" onclick="return false;" href=""><%=pages[x]%></a></li>
+                            <%} else {%>
+                                <li class="page-item <%= pages[x] == page? 'active' : '' %>"><a class="page-link" href="/search?keyword=<%=keyword%>&page=<%=pages[x]%>"><%=pages[x]%></a></li>
+                            <%}%>
+                            
+                            
+                        <%}%>
+                        <%if(page < totalPage){%>
+                            <li class="page-item"><a class="page-link" href="/search?keyword=<%=keyword%>&page=<%=page-1%>">&raquo;</a></li>
+                        <%}%>
+                    </ul> 
+                </div>
+                
+            </div>
+            <%-include('layout/sidebar')%>
+            
+        </div>
+    </div>
+</div>
+<!--	End Body	-->
+
+<%-include('layout/footer')%>
+<!--	End Footer	-->
+
+</body>
+</html>
