@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
-// const db_connect = process.env.mongodb;
+const db_connect = process.env.mongodb;
 // // local
-const db_connect = "mongodb://localhost/vp_shop_project";
+// const db_connect = "mongodb://localhost/vp_shop_project";
 module.exports = () => {
     mongoose.connect(db_connect, {
         useNewUrlParser: true,
